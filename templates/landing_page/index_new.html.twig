@@ -198,6 +198,72 @@
 
                             {# {{ form_widget(form) }} #}
 
+<style type="text/css">
+    .form-error {
+        color: red;
+        font-weight: bold;
+        padding-bottom:10px;
+    }
+    .form-error ul {
+        margin:0;
+    }
+
+</style>
+
+{# Etape 2 #}
+<div class="card step_2">
+    <div class="card-content">
+        <span class="card-title color_product_primary center-align">Étape 2</span>
+        <p class="h6 center-align">Remplissez ce formulaire</p>
+        <div class="form-wrapper">
+            <div class="input-field">
+                <input type="text" name='{{ field_name(form.user.firstname) }}'>
+                {{ form_label(form.user.firstname) }}
+                <div class="form-error">{{ form_errors(form.user.firstname) }}</div>
+            </div>
+            <div class="input-field">
+                <input type="text" name='{{ field_name(form.user.lastname) }}'>
+                {{ form_label(form.user.lastname) }}
+                <div class="form-error">{{ form_errors(form.user.lastname) }}</div>
+            </div>
+            <div class="input-field">
+                <input type="text" name='{{ field_name(form.user.adress) }}'>
+                {{ form_label(form.user.adress) }}
+                <div class="form-error">{{ form_errors(form.user.adress) }}</div>
+            </div>
+            <div class="input-field">
+                <input type="text" name='{{ field_name(form.user.city) }}'>
+                {{ form_label(form.user.city) }}
+                <div class="form-error">{{ form_errors(form.user.city) }}</div>
+            </div>
+            <div class="input-field">
+                <input type="text" name='{{ field_name(form.user.poste_code) }}'>
+                {{ form_label(form.user.poste_code) }}
+                <div class="form-error">{{ form_errors(form.user.poste_code) }}</div>
+            </div>
+            <div class="input-field">
+                <select name='{{ field_name(form.user.country) }}'>
+                    {% for label, value in field_choices(form.user.country) %}
+                        <option value="{{ value }}">{{ label }}</option>
+                    {% endfor %}
+                </select>
+                {{ form_label(form.user.country) }}
+                <div class="form-error">{{ form_errors(form.user.country) }}</div>
+            </div>
+            <div class="input-field">
+                <input type="text" name='{{ field_name(form.user.phone) }}'>
+               {{ form_label(form.user.phone) }}
+                <div class="form-error">{{ form_errors(form.user.phone) }}</div>
+            </div>
+            <div class="input-field">
+                <input type="text" name='{{ field_name(form.user.email) }}'>
+               {{ form_label(form.user.email) }}
+               <div class="form-error">{{ form_errors(form.user.email) }}</div>
+                
+            </div>
+        </div>
+    </div>
+
 
                         {# Etape 3 #}
                         <div class="card step_3">
@@ -210,7 +276,7 @@
                                         <div class="collapsible-body card-form">
                                             <div class="row">
                                                 <div class="center-align">
-                                                    <button type="submit" name="order[payment_method]" value="lpmonetico" class="btn-large btn-block waves-effect waves-light">Continuer</button>
+                                                    <button type="submit" name="order[payment_method]" value="lpmonetico" class="btn-large btn-block waves-effect waves-light" id='btn'>Continuer</button>
                                                     <p>J'accepte les <a href="https://feelwellshop.com/fr/conditions-generales-de-ventes" target="_blank">conditions générales de vente</a></p>
                                                     <img class="responsive-img monetico" src="assets/images/paiement-securise-stripe.jpeg" alt="Stripe protège vos achats">
                                                 </div>

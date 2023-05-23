@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class UserFormType extends AbstractType
 {
@@ -18,7 +19,13 @@ class UserFormType extends AbstractType
             ->add('adress')
             ->add('city')
             ->add('poste_code')
-            ->add('country')
+            ->add('country', ChoiceType::class, [
+                'choices' => [
+                    'France' => 'France',
+                    'Luxembourg' => 'Luxembourg',
+                    'Belgique' => 'Belgique',
+                ]
+            ])
             ->add('phone')
             ->add('email');
     }
