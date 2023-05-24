@@ -22,6 +22,7 @@ class CartType extends AbstractType
                 'class' => Product::class,
                 'choice_label' => 'name', // Remplacez 'name' par le nom de l'attribut affichant le nom de l'image dans votre entité Image
                 'expanded' => true,
+                'required' => true,
             ]);
     }
 
