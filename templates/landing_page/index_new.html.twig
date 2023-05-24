@@ -196,7 +196,63 @@
                 <aside class="sidebar col s12 m12 l4">
 
 
-                            {# {{ form_widget(form) }} #}
+                            <div class="card step_2">
+                                <div class="card-content">
+                                    <span class="card-title color_product_primary center-align">Étape 2</span>
+                                    <p class="h6 center-align">Remplissez ce formulaire</p>
+                                    <div class="form-wrapper">
+
+
+                                        <div class="input-field">
+                                            {{ form_widget(form.user.firstname) }}
+                                            <label>{{ form_label(form.user.firstname) }}</label>
+                                            <div class="form-error"></div>
+                                        </div>
+
+                                        <div class="input-field">
+                                            {{ form_widget(form.user.lastname) }}
+                                            <label>{{ form_label(form.user.lastname) }}</label>
+                                            <div class="form-error"></div>
+                                        </div>
+
+                                        <div class="input-field">
+                                            {{ form_widget(form.user.adress) }}
+                                            <label>{{ form_label(form.user.adress) }}</label>
+                                            <div class="form-error"></div>
+                                        </div>
+                                        <div class="input-field">
+                                            {{ form_widget(form.user.city) }}
+                                            <label>{{ form_label(form.user.city) }}</label>
+                                            <div class="form-error"></div>
+                                        </div>
+
+                                        <div class="input-field">
+                                            {{ form_widget(form.user.poste_code) }}
+                                            <label>{{ form_label(form.user.poste_code) }}</label>
+                                            <div class="form-error"></div>
+                                        </div>
+
+                                        <div class="input-field">
+                                            {{ form_widget(form.user.country) }}
+                                            <label>{{ form_label(form.user.country) }}</label>
+                                            <div class="form-error"></div>
+                                        </div>
+                                        <div class="input-field">
+                                            {{ form_widget(form.user.phone) }}
+                                            <label>{{ form_label(form.user.phone) }}</label>
+                                            <div class="form-error"></div>
+                                        </div>
+
+                                        <div class="input-field">
+                                            {{ form_widget(form.user.email) }}
+                                            <label>{{ form_label(form.user.email) }}</label>
+                                            <div class="form-error"></div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
 
 
                         {# Etape 3 #}

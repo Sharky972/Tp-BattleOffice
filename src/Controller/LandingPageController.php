@@ -16,16 +16,24 @@ use App\Form\ProductType;
 use App\Form\UserFormType;
 use App\Repository\CartRepository;
 use Symfony\Component\Form\SubmitButton;
-
+use App\Service\GuzzleClient;
+use GuzzleHttp\Client;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class LandingPageController extends AbstractController
 {
+    public function __construct(
+        private HttpClientInterface $client,
+    ) {
+    }
     /**
      * @Route("/", name="landing_page")
      * @throws \Exception
      */
     public function index(Request $request, EntityManagerInterface $entityManager, CartRepository $cartRepository)
     {
+
+
         $allproduct = $entityManager->getRepository(Product::class)->findAll();
 
         $cart = new Cart();
@@ -35,7 +43,57 @@ class LandingPageController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $cartRepository->save($cart, true);
-            dd($cart);
+
+            $json = json_encode([
+                'order' => [
+                    'id'   => $cart->getId(),
+                    'product' => $cart->getProduct(),
+                    'payment' => 'stripe',
+                    'status' => 'waiting',
+                    'client' => [
+                        "firstname" => $cart->getUser()->getFirstName(),
+                        "lastname" => $cart->getUser()->getLastName(),
+                        "email" => $cart->getUser()->getEmail()
+                    ],
+
+                    'addresses' => [
+                        "billing" => [
+                            "address_line1" => $cart->getUser()->getAdress(),
+                            "address_line2" => $cart->getUser()->getAdress(),
+                            "city" => $cart->getUser()->getCity(),
+                            "zipcode" => $cart->getUser()->getPosteCode(),
+                            "country" => $cart->getUser()->getCountry(),
+                            "phone" => $cart->getUser()->getPhone(),
+                        ],
+
+                        "shipping" => [
+                            "address_line1" => $cart->getUser()->getAdress(),
+                            "address_line2" => $cart->getUser()->getAdress(),
+                            "city" => $cart->getUser()->getCity(),
+                            "zipcode" => $cart->getUser()->getPosteCode(),
+                            "country" => $cart->getUser()->getCountry(),
+                            "phone" => $cart->getUser()->getPhone(),
+
+                        ]
+                    ]
+                ]
+            ]);
+
+            $response = $this->client->request(
+                'POST',
+                'https://api-commerce.simplon-roanne.com/order',
+                [
+                    'headers' => [
+                        'Authorization' => 'Bearer mJxTXVXMfRzLg6ZdhUhM4F6Eutcm1ZiPk4fNmvBMxyNR4ciRsc8v0hOmlzA0vTaX'
+                    ],
+                    'body' => $json
+                ]
+            );
+
+            return $this->render('landing_page/confirmation.html.twig', [
+
+                'response' => $response, // Passez les données de réponse à la vue si nécessaire
+            ]);
         }
 
 
