@@ -33,6 +33,7 @@ class LandingPageController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager, CartRepository $cartRepository)
     {
 
+        $bearer = $_ENV['BEARER_API_KEY'];
 
         $allproduct = $entityManager->getRepository(Product::class)->findAll();
 
@@ -47,9 +48,9 @@ class LandingPageController extends AbstractController
             $json = json_encode([
                 'order' => [
                     'id'   => $cart->getId(),
-                    'product' => $cart->getProduct(),
-                    'payment' => 'stripe',
-                    'status' => 'waiting',
+                    'product' => $cart->getProduct()->getName(),
+                    'payment_method' => 'stripe',
+                    'status' => 'WAITING',
                     'client' => [
                         "firstname" => $cart->getUser()->getFirstName(),
                         "lastname" => $cart->getUser()->getLastName(),
@@ -84,7 +85,7 @@ class LandingPageController extends AbstractController
                 'https://api-commerce.simplon-roanne.com/order',
                 [
                     'headers' => [
-                        'Authorization' => 'Bearer mJxTXVXMfRzLg6ZdhUhM4F6Eutcm1ZiPk4fNmvBMxyNR4ciRsc8v0hOmlzA0vTaX'
+                        'Authorization' => $bearer
                     ],
                     'body' => $json
                 ]
